@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="City Biking Music is a Long Island City recording, rehearsal, mixing, and mastering studio for independent artists."
+    />
+    <title>City Biking Music</title>
+    <script type="module" crossorigin src="/citybikingmusic-web/assets/index-BvwcOd7o.js"></script>
+    <link rel="stylesheet" crossorigin href="/citybikingmusic-web/assets/index-C4mqgYHf.css">
+  </head>
+  <body>
+    <!-- Grain drop-shadow filters. Shadow is built from SourceAlpha (the element's
+         actual glyph/shape), so on text it hugs the letters instead of the box.
+         feOffset dx/dy is updated from JS to track the pointer. -->
+    <svg class="grain-defs" aria-hidden="true" width="0" height="0" style="position: absolute">
+      <defs>
+        <filter id="grainshadow-w" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+          <feTurbulence id="gs-w-turb" type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="1" stitchTiles="stitch" result="noise" />
+          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 9 -4" result="grain" />
+          <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="soft" />
+          <feOffset id="gs-w-off" in="soft" dx="5" dy="5" result="off" />
+          <feComposite in="off" in2="grain" operator="in" result="mask" />
+          <feFlood flood-color="#ffffff" result="col" />
+          <feComposite in="col" in2="mask" operator="in" result="shadow" />
+          <feMerge>
+            <feMergeNode in="shadow" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+        <filter id="grainshadow-r" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+          <feTurbulence id="gs-r-turb" type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="1" stitchTiles="stitch" result="noise" />
+          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 9 -4" result="grain" />
+          <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="soft" />
+          <feOffset id="gs-r-off" in="soft" dx="5" dy="5" result="off" />
+          <feComposite in="off" in2="grain" operator="in" result="mask" />
+          <feFlood flood-color="#ff3043" result="col" />
+          <feComposite in="col" in2="mask" operator="in" result="shadow" />
+          <feMerge>
+            <feMergeNode in="shadow" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+    </svg>
+    <div id="app"></div>
+  </body>
+</html>
