@@ -156,12 +156,12 @@ function CityScene() {
     scene.background = new THREE.Color(0x030303);
 
     const camera = new THREE.PerspectiveCamera(
-      45,
+      35,
       container.clientWidth / container.clientHeight,
       0.1,
       1000
     );
-    camera.position.set(3, 2, 3);
+    camera.position.set(4, 3, 4);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
