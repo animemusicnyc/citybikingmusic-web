@@ -152,7 +152,7 @@ main > .site-nav {
   flex: 0 0 auto;
   color: $red;
   font-weight: 900;
-  text-shadow: var(--sx) var(--sy) 0 currentColor;
+  filter: url("#grainshadow-r");
 }
 
 .site-nav nav {
@@ -165,13 +165,14 @@ main > .site-nav {
 .site-nav a {
   font-size: 0.92rem;
   font-weight: 900;
-  text-shadow: var(--sx) var(--sy) 0 currentColor;
+  filter: url("#grainshadow-w");
 }
 
 .site-nav a:hover,
 .site-nav a:focus-visible,
 .site-nav a[aria-current="page"] {
   color: $red;
+  filter: url("#grainshadow-r");
 }
 
 main {
@@ -208,7 +209,7 @@ h1 {
   text-align: center;
   text-transform: uppercase;
   white-space: nowrap;
-  filter: contrast(1.35);
+  filter: contrast(1.35) url("#grainshadow-w");
   transform: scaleY(1.12);
 }
 
@@ -231,11 +232,11 @@ h1 {
   font-weight: 900;
   line-height: 1;
   transform: scaleY(1.13);
-  text-shadow: var(--sx) var(--sy) 0 currentColor;
+  filter: url("#grainshadow-r");
 }
 
 .rates ul {
-  text-shadow: var(--sx) var(--sy) 0 currentColor;
+  filter: url("#grainshadow-w");
 }
 
 .rates ul {
@@ -281,7 +282,7 @@ h1 {
   letter-spacing: 0.055em;
   text-align: right;
   transform: scaleY(1.08);
-  text-shadow: var(--sx) var(--sy) 0 currentColor;
+  filter: url("#grainshadow-w");
 }
 
 .address-primary {
@@ -289,7 +290,6 @@ h1 {
   gap: 0.26em;
   white-space: nowrap;
 }
-
 .contact-strip {
   display: flex;
   flex-direction: column;
@@ -302,19 +302,23 @@ h1 {
   letter-spacing: 0.055em;
   text-align: center;
   transform: scaleY(1.08);
-  text-shadow: var(--sx) var(--sy) 0 currentColor;
+}
+
+.contact-strip a {
+  filter: url("#grainshadow-w");
 }
 
 .contact-strip a:first-child {
   color: $red;
+  filter: url("#grainshadow-r");
 }
 
 h2 {
-  text-shadow: var(--sx) var(--sy) 0 currentColor;
+  filter: url("#grainshadow-w");
 }
 
 h3 {
-  text-shadow: var(--sx) var(--sy) 0 currentColor;
+  filter: url("#grainshadow-w");
 }
 
 .page-shell {

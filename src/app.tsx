@@ -3,6 +3,10 @@ import { useEffect, useState } from 'preact/hooks';
 
 type Route = 'home' | 'studio' | 'team' | 'book' | 'services';
 
+// Public assets live under Vite's configured base path, so prefix it instead of
+// hardcoding "/..." (which 404s when the app is served from a subpath).
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+
 const navItems: Array<[Route, string]> = [
   ['studio', 'Studio'],
   ['team', 'Team'],
@@ -145,7 +149,7 @@ function FlyerHome({ current }: { current: Route }) {
             rel="noreferrer"
             aria-label="Open City Biking Music address in Google Maps"
           >
-            <img src="/map.webp" alt="Map showing City Biking Music in Long Island City" />
+            <img src={asset('/map.webp')} alt="Map showing City Biking Music in Long Island City" />
           </a>
         </figure>
       </div>
@@ -173,9 +177,9 @@ function StudioPage() {
     <Page title="Studio" kicker="Long Island City recording and production space">
       <div class="studio-layout">
         <div class="studio-images">
-          <img src="/studio/studio-1.webp" alt="City Biking Music studio room" />
-          <img src="/studio/studio-2.webp" alt="Studio desk and gear" />
-          <img src="/studio/studio-3.webp" alt="Wide view of the studio" />
+          <img src={asset('/studio/studio-1.webp')} alt="City Biking Music studio room" />
+          <img src={asset('/studio/studio-2.webp')} alt="Studio desk and gear" />
+          <img src={asset('/studio/studio-3.webp')} alt="Wide view of the studio" />
         </div>
 
         <div class="feature-grid">
@@ -202,7 +206,7 @@ function TeamPage() {
       <div class="team-grid">
         {team.map((member) => (
           <article class="team-card" key={member.name}>
-            <img src={member.image} alt={member.name} />
+            <img src={asset(member.image)} alt={member.name} />
             <div>
               <h3>{member.name}</h3>
               <p class="role">{member.role}</p>

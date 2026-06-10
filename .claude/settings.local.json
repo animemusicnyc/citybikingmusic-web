@@ -7,7 +7,11 @@
       "Bash(curl -s \"http://localhost:5173/\")",
       "Bash(curl -s \"http://localhost:5173/src/main.tsx\" -o /dev/null -w \"%{http_code}\\\\n\")",
       "Bash(curl -s -o /tmp/idx.html -w \"status=%{http_code} size=%{size_download}\\\\n\" \"http://localhost:5173/\")",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(curl -s -L -o /tmp/idx.html -w \"final=%{url_effective} status=%{http_code} size=%{size_download}\\\\n\" \"http://localhost:5173/\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:5173/map.webp\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:5173/citybikingmusic-web/map.webp\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:5173/team/noah-grande.webp\")"
     ]
   }
 }
