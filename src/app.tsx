@@ -13,33 +13,32 @@ const navItems: Array<[Route, string]> = [
   ['services', 'Services'],
 ];
 
-const studioFeatures = [
-  {
-    title: 'Work the Way You Want',
-    text: 'Bring your own laptop, interface, or preferred setup, or plug directly into ours. The room is built to adapt to the way you work.',
-    items: ['Logic Pro 11', 'Ableton Live 12.3', 'Scarlett 18i20 interface'],
-  },
-  {
-    title: 'Vocal Recording',
-    text: 'Vocals are recorded in a soundproof booth using a high-end condenser microphone and outboard signal chain for clean, detailed takes.',
-    items: ['AKG C414', 'Rupert Neve 511 preamp', 'dbx 560A compressor'],
-  },
-  {
-    title: 'Guitars & Amps',
-    text: 'Track electric guitars through real amps or direct setups, with flexible options for tone shaping and acoustic guitar capture.',
-    items: ['Vox AC30C2', 'Supro Galaxy 1697R', 'Mesa Boogie Mini Rectifier'],
-  },
-  {
-    title: 'Synths, Keys & MIDI',
-    text: 'Use analog and digital synths, controllers, weighted keys, and MIDI routing for production inside your DAW.',
-    items: ['Sequential Prophet REV-2', 'Behringer Poly D', 'Ableton Push 2'],
-  },
-  {
-    title: 'Drum Production',
-    text: 'Electronic drums are tracked via MIDI for precise control over feel, sound selection, and editing.',
-    items: ['Roland TD-17KX2 V-Drums', 'Professional drum libraries'],
-  },
-];
+const studioEquipment: Record<string, string[]> = {
+  'DAW & Interface': [
+    'Logic Pro 11',
+    'Ableton Live 12.3',
+    'Scarlett 18i20 interface',
+  ],
+  'Microphones & Preamps': [
+    'AKG C414',
+    'Rupert Neve 511 preamp',
+    'dbx 560A compressor',
+  ],
+  'Guitars & Amps': [
+    'Vox AC30C2',
+    'Supro Galaxy 1697R',
+    'Mesa Boogie Mini Rectifier',
+  ],
+  'Synths, Keys & MIDI': [
+    'Sequential Prophet REV-2',
+    'Behringer Poly D',
+    'Ableton Push 2',
+  ],
+  'Drums': [
+    'Roland TD-17KX2 V-Drums',
+    'Professional drum libraries',
+  ],
+};
 
 const team = [
   {
@@ -190,24 +189,22 @@ function StudioPage() {
           <img src={asset('/studio/studio-3.webp')} alt="Wide view of the studio" />
         </div>
 
-        <div class="feature-grid">
-          {studioFeatures.map((feature) => (
-            <article class="feature-card" key={feature.title}>
-              <h3>{feature.title}</h3>
-              <p>{feature.text}</p>
+        <div class="equipment-tree">
+          {Object.entries(studioEquipment).map(([category, items]) => (
+            <div class="equipment-branch" key={category}>
+              <h3>{category}</h3>
               <ul>
-                {feature.items.map((item) => (
+                {items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-            </article>
+            </div>
           ))}
         </div>
       </div>
     </Page>
   );
 }
-
 function TeamPage() {
   return (
     <Page title="Team" kicker="Engineers, producers, and visual support">
