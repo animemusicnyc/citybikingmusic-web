@@ -16,8 +16,8 @@
     <svg class="grain-defs" aria-hidden="true" width="0" height="0" style="position: absolute">
       <defs>
         <filter id="grainshadow-w" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
-          <feTurbulence id="gs-w-turb" type="fractalNoise" baseFrequency="0.22" numOctaves="2" seed="1" stitchTiles="stitch" result="noise" />
-          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 9 -4" result="grain" />
+          <feTurbulence id="gs-w-turb" type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="1" stitchTiles="stitch" result="noise" />
+          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 18 -8" result="grain" />
           <!-- fatten the glyph shape so the grain forms a visible halo around the
                letters even with a tiny offset -->
           <feMorphology in="SourceAlpha" operator="dilate" radius="2.5" result="fat" />
@@ -37,8 +37,8 @@
           </feMerge>
         </filter>
         <filter id="grainshadow-r" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
-          <feTurbulence id="gs-r-turb" type="fractalNoise" baseFrequency="0.22" numOctaves="2" seed="1" stitchTiles="stitch" result="noise" />
-          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 9 -4" result="grain" />
+          <feTurbulence id="gs-r-turb" type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="1" stitchTiles="stitch" result="noise" />
+          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 18 -8" result="grain" />
           <!-- fatten the glyph shape so the grain forms a visible halo around the
                letters even with a tiny offset -->
           <feMorphology in="SourceAlpha" operator="dilate" radius="2.5" result="fat" />
