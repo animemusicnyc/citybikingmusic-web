@@ -18,22 +18,21 @@
     <svg class="grain-defs" aria-hidden="true" width="0" height="0" style="position: absolute">
       <defs>
         <filter id="grainshadow-w" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
-          <feTurbulence id="gs-w-turb" type="fractalNoise" baseFrequency="0.85" numOctaves="3" seed="1" stitchTiles="stitch" result="noise" />
-          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 5 -2" result="grain" />
-          <feGaussianBlur in="grain" stdDeviation="0.6" result="softgrain" />
-          <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="2" seed="2" stitchTiles="stitch" result="noise2" />
-          <feColorMatrix in="noise2" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 3 -1" result="grain2" />
-          <feGaussianBlur in="grain2" stdDeviation="1.2" result="softgrain2" />
+          <feTurbulence id="gs-w-turb" type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="1" stitchTiles="stitch" result="noise" />
+          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 18 -8" result="grain" />
+          <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="2" seed="2" stitchTiles="stitch" result="noise2" />
+          <feColorMatrix in="noise2" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 12 -5" result="grain2" />
           <feMorphology in="SourceAlpha" operator="dilate" radius="2.5" result="fat" />
           <feGaussianBlur in="fat" stdDeviation="1" result="blurred" />
           <feComponentTransfer in="blurred" result="soft">
             <feFuncA type="linear" slope="2.6" intercept="0" />
           </feComponentTransfer>
           <feOffset id="gs-w-off" in="soft" dx="5" dy="5" result="off" />
-          <feComposite in="off" in2="softgrain" operator="in" result="mask" />
-          <feComposite in="off" in2="softgrain2" operator="in" result="mask2" />
+          <feComposite in="off" in2="grain" operator="in" result="mask" />
+          <feComposite in="off" in2="grain2" operator="in" result="mask2" />
+          <feGaussianBlur in="mask2" stdDeviation="2" result="mask2blur" />
           <feMerge result="shadow">
-            <feMergeNode in="mask2" />
+            <feMergeNode in="mask2blur" />
             <feMergeNode in="mask" />
           </feMerge>
           <feFlood flood-color="#ffffff" result="col" />
@@ -41,23 +40,24 @@
           <feMerge>
             <feMergeNode in="colored" />
             <feMergeNode in="SourceGraphic" />
+          </feMerge>
         </filter>
         <filter id="grainshadow-r" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
-          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 5 -2" result="grain" />
-          <feGaussianBlur in="grain" stdDeviation="0.6" result="softgrain" />
-          <feTurbulence type="fractalNoise" baseFrequency="0.4" numOctaves="2" seed="2" stitchTiles="stitch" result="noise2" />
-          <feColorMatrix in="noise2" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 3 -1" result="grain2" />
-          <feGaussianBlur in="grain2" stdDeviation="1.2" result="softgrain2" />
+          <feTurbulence id="gs-r-turb" type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="1" stitchTiles="stitch" result="noise" />
+          <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 18 -8" result="grain" />
+          <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="2" seed="2" stitchTiles="stitch" result="noise2" />
+          <feColorMatrix in="noise2" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 12 -5" result="grain2" />
           <feMorphology in="SourceAlpha" operator="dilate" radius="2.5" result="fat" />
           <feGaussianBlur in="fat" stdDeviation="1" result="blurred" />
           <feComponentTransfer in="blurred" result="soft">
             <feFuncA type="linear" slope="2.6" intercept="0" />
           </feComponentTransfer>
           <feOffset id="gs-r-off" in="soft" dx="5" dy="5" result="off" />
-          <feComposite in="off" in2="softgrain" operator="in" result="mask" />
-          <feComposite in="off" in2="softgrain2" operator="in" result="mask2" />
+          <feComposite in="off" in2="grain" operator="in" result="mask" />
+          <feComposite in="off" in2="grain2" operator="in" result="mask2" />
+          <feGaussianBlur in="mask2" stdDeviation="2" result="mask2blur" />
           <feMerge result="shadow">
-            <feMergeNode in="mask2" />
+            <feMergeNode in="mask2blur" />
             <feMergeNode in="mask" />
           </feMerge>
           <feFlood flood-color="#ff3043" result="col" />
