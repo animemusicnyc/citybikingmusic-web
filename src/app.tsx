@@ -1,5 +1,7 @@
 import type { ComponentChildren } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 // iOS Safari requires a user gesture to request device-orientation permission.
 // We stash the promise so multiple callers can await the same request.
 let orientationPermissionPromise: Promise<PermissionState | 'unsupported'> | null = null;
@@ -138,17 +140,123 @@ function Header({ current }: { current: Route }) {
     </header>
   );
 }
+function CityScene() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const rendererRef = useRef<any>(null);
 
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let disposed = false;
+    let animId = 0;
+    let model: THREE.Object3D | null = null;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x030303);
+
+    const camera = new THREE.PerspectiveCamera(
+      45,
+      container.clientWidth / container.clientHeight,
+      0.1,
+      1000
+    );
+    camera.position.set(3, 2, 3);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    rendererRef.current = renderer;
+    container.appendChild(renderer.domElement);
+
+    const ambient = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambient);
+    const dir = new THREE.DirectionalLight(0xffffff, 1);
+    dir.position.set(5, 5, 5);
+    scene.add(dir);
+
+    // Start render loop immediately so background is visible
+    const animate = () => {
+      if (disposed) return;
+      animId = requestAnimationFrame(animate);
+      if (model) model.rotation.y += 0.003;
+      renderer.render(scene, camera);
+    };
+    animate();
+    renderer.render(scene, camera);
+
+    const loader = new GLTFLoader();
+    loader.load(
+      asset('/city.glb'),
+      (gltf) => {
+        if (disposed) return;
+        model = gltf.scene;
+
+        // Center and scale
+        const box = new THREE.Box3().setFromObject(model);
+        const size = new THREE.Vector3();
+        box.getSize(size);
+        const maxDim = Math.max(size.x, size.y, size.z);
+        const scale = 2 / maxDim;
+        model.scale.setScalar(scale);
+
+        const center = new THREE.Vector3();
+        box.getCenter(center);
+        model.position.sub(center.multiplyScalar(scale));
+
+        // Style: white geometry on dark background
+        model.traverse((child) => {
+          if ((child as THREE.Mesh).isMesh) {
+            const mesh = child as THREE.Mesh;
+            const mat = mesh.material as THREE.MeshStandardMaterial;
+            if (mat) {
+              mat.color.setHex(0xffffff);
+              mat.emissive.setHex(0x111111);
+            }
+          }
+        });
+
+        scene.add(model);
+      },
+      undefined,
+      (err) => {
+        console.error('Failed to load city.glb:', err);
+      }
+    );
+
+    const onResize = () => {
+      if (!container || !rendererRef.current) return;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      rendererRef.current.setSize(w, h);
+    };
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      disposed = true;
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', onResize);
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+        if (container.contains(rendererRef.current.domElement)) {
+          container.removeChild(rendererRef.current.domElement);
+        }
+      }
+    };
+  }, []);
+
+  return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />;
+}
 function FlyerHome({ current }: { current: Route }) {
   const mapRef = useRef<HTMLElement>(null);
   useMouseTilt(mapRef);
-
   return (
     <section class="flyer-hero" aria-labelledby="page-title">
       <Header current={current} />
-
       <h1 id="page-title">"CITY BIKING MUSIC"</h1>
-
       <div class="details" aria-label="Services and location">
         <div class="rates">
           <p class="rates-label">affordable rates in:</p>
@@ -158,19 +266,10 @@ function FlyerHome({ current }: { current: Route }) {
             <li>sessions</li>
           </ul>
         </div>
-
         <figure class="map-card" ref={mapRef}>
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=47-32%2032nd%20Pl%20Suite%205007%2C%20Long%20Island%20City%2C%20NY%2011101"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Open City Biking Music address in Google Maps"
-          >
-            <img src={asset('/map.webp')} alt="Map showing City Biking Music in Long Island City" />
-          </a>
+          <CityScene />
         </figure>
       </div>
-
       <address class="address">
         <span class="address-primary">
           <span>47-32 32nd Pl,</span>

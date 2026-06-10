@@ -254,21 +254,20 @@ h1 {
 
 .map-card {
   width: min(100%, 512px);
+  height: min(100%, 426px);
   margin: 0;
   border: 2px solid $black;
   background: $paper;
   transform-style: preserve-3d;
   transform: perspective(800px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: transform 0.15s ease-out;
-
+  overflow: hidden;
   @include noise-shadow($red);
 }
-
-.map-card img {
+.map-card canvas {
+  display: block;
   width: 100%;
-  aspect-ratio: 512 / 426;
-  object-fit: cover;
-  filter: invert(1) hue-rotate(180deg) contrast(1.35);
+  height: 100%;
 }
 
 .address {
