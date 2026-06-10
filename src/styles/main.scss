@@ -382,7 +382,7 @@ h3 {
   border-radius: 6px;
   background: $paper;
 
-  @include noise-shadow($red);
+  @include noise-shadow($black);
 }
 
 .simple-card p {
@@ -471,7 +471,7 @@ h3 {
   border-radius: 6px;
   background: $paper;
 
-  @include flat-shadow($red);
+  @include flat-shadow($black);
 }
 
 .team-card img {
