@@ -311,9 +311,25 @@ h1 {
   filter: url("#grainshadow-w");
 }
 
-.contact-strip a:first-child {
-  color: $red;
-  filter: url("#grainshadow-r");
+.book-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(19px, 2vw, 24px);
+  margin-top: clamp(78px, 8.25vw, 98px);
+  text-align: center;
+}
+
+.book-section p:not(.kicker) {
+  max-width: 560px;
+  margin: 0 auto;
+  color: $muted;
+  font-size: clamp(1.08rem, 2vw, 1.35rem);
+  line-height: 1.45;
+}
+
+.book-section .actions {
+  margin-top: 8px;
 }
 
 h2 {

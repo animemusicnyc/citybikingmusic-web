@@ -1,7 +1,7 @@
 import type { ComponentChildren } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
-type Route = 'home' | 'studio' | 'team' | 'book' | 'services';
+type Route = 'home' | 'studio' | 'team' | 'services';
 
 // Public assets live under Vite's configured base path, so prefix it instead of
 // hardcoding "/..." (which 404s when the app is served from a subpath).
@@ -10,7 +10,6 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//
 const navItems: Array<[Route, string]> = [
   ['studio', 'Studio'],
   ['team', 'Team'],
-  ['book', 'Book Time'],
   ['services', 'Services'],
 ];
 
@@ -71,7 +70,7 @@ const team = [
     name: 'Kevin Poli',
     role: 'Visual Artist',
     image: '/team/kevin-poli.webp',
-    bio: '2D and 3D visual artist specializing in promotional design, album artwork, and visual assets that support artists’ creative identity.',
+    bio: '2D and 3D visual artist specializing in promotional design, album artwork, and visual assets that support artists\' creative identity.',
   },
 ];
 
@@ -92,7 +91,7 @@ const services = [
 
 function getRoute(): Route {
   const route = window.location.hash.replace(/^#\/?/, '') as Route;
-  return ['studio', 'team', 'book', 'services'].includes(route) ? route : 'home';
+  return ['studio', 'team', 'services'].includes(route) ? route : 'home';
 }
 
 function useRoute() {
@@ -166,10 +165,22 @@ function FlyerHome({ current }: { current: Route }) {
       </address>
 
       <section class="contact-strip" aria-label="Quick contact information">
-        <a href="#/book">book time</a>
         <a href="mailto:citybikingmusic@gmail.com">citybikingmusic@gmail.com</a>
         <a href="https://citybikingmusic.com">citybikingmusic.com</a>
         <a href="tel:+19292620437">(929) 262-0437</a>
+      </section>
+
+      <section class="book-section" aria-labelledby="book-heading">
+        <p class="kicker">Start with a conversation</p>
+        <h2 id="book-heading">Book Time</h2>
+        <p>
+          Talk to us before booking your first session. Once the project and setup
+          are clear, use the booking page to reserve time.
+        </p>
+        <div class="actions">
+          <a href="mailto:citybikingmusic@gmail.com">Talk to us</a>
+          <a href="https://citybikingmusic.com/book.html">Open booking page</a>
+        </div>
       </section>
     </section>
   );
@@ -217,21 +228,6 @@ function TeamPage() {
             </div>
           </article>
         ))}
-      </div>
-    </Page>
-  );
-}
-
-function BookPage() {
-  return (
-    <Page title="Book Time" kicker="Start with a conversation">
-      <p>
-        Talk to us before booking your first session. Once the project and setup
-        are clear, use the booking page to reserve time.
-      </p>
-      <div class="actions">
-        <a href="mailto:citybikingmusic@gmail.com">Talk to us</a>
-        <a href="https://citybikingmusic.com/book.html">Open booking page</a>
       </div>
     </Page>
   );
@@ -375,7 +371,6 @@ export function App() {
         {route !== 'home' && <Header current={route} />}
         {route === 'studio' && <StudioPage />}
         {route === 'team' && <TeamPage />}
-        {route === 'book' && <BookPage />}
         {route === 'services' && <ServicesPage />}
       </main>
     </>
