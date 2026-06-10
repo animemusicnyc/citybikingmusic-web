@@ -1,5 +1,5 @@
 import type { ComponentChildren } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 
 type Route = 'home' | 'studio' | 'team' | 'book' | 'services';
 
@@ -126,6 +126,9 @@ function Header({ current }: { current: Route }) {
 }
 
 function FlyerHome({ current }: { current: Route }) {
+  const mapRef = useRef<HTMLElement>(null);
+  useMouseTilt(mapRef);
+
   return (
     <section class="flyer-hero" aria-labelledby="page-title">
       <Header current={current} />
@@ -142,7 +145,7 @@ function FlyerHome({ current }: { current: Route }) {
           </ul>
         </div>
 
-        <figure class="map-card">
+        <figure class="map-card" ref={mapRef}>
           <a
             href="https://www.google.com/maps/search/?api=1&query=47-32%2032nd%20Pl%20Suite%205007%2C%20Long%20Island%20City%2C%20NY%2011101"
             target="_blank"
@@ -329,6 +332,36 @@ function useMouseShadow() {
       if (frame) cancelAnimationFrame(frame);
     };
   }, []);
+}
+
+function useMouseTilt(ref: { current: HTMLElement | null }) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const maxDeg = 6;
+
+    const onMove = (e: PointerEvent) => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      el.style.setProperty('--rx', `${(-dy * maxDeg).toFixed(2)}deg`);
+      el.style.setProperty('--ry', `${(dx * maxDeg).toFixed(2)}deg`);
+    };
+
+    const onLeave = () => {
+      el.style.setProperty('--rx', '0deg');
+      el.style.setProperty('--ry', '0deg');
+    };
+
+    window.addEventListener('pointermove', onMove);
+    el.addEventListener('pointerleave', onLeave);
+    return () => {
+      window.removeEventListener('pointermove', onMove);
+      el.removeEventListener('pointerleave', onLeave);
+    };
+  }, [ref]);
 }
 
 export function App() {

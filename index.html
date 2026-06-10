@@ -18,42 +18,50 @@
         <filter id="grainshadow-w" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
           <feTurbulence id="gs-w-turb" type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="1" stitchTiles="stitch" result="noise" />
           <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 18 -8" result="grain" />
-          <!-- fatten the glyph shape so the grain forms a visible halo around the
-               letters even with a tiny offset -->
+          <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="2" seed="2" stitchTiles="stitch" result="noise2" />
+          <feColorMatrix in="noise2" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 12 -5" result="grain2" />
           <feMorphology in="SourceAlpha" operator="dilate" radius="2.5" result="fat" />
           <feGaussianBlur in="fat" stdDeviation="1" result="blurred" />
-          <!-- threshold/boost the blurred alpha back up so the grain stays punchy
-               (soft fringe, full-strength body) instead of dimmed by the blur -->
           <feComponentTransfer in="blurred" result="soft">
             <feFuncA type="linear" slope="2.6" intercept="0" />
           </feComponentTransfer>
           <feOffset id="gs-w-off" in="soft" dx="5" dy="5" result="off" />
           <feComposite in="off" in2="grain" operator="in" result="mask" />
+          <feComposite in="off" in2="grain2" operator="in" result="mask2" />
+          <feGaussianBlur in="mask2" stdDeviation="2" result="mask2blur" />
+          <feMerge result="shadow">
+            <feMergeNode in="mask2blur" />
+            <feMergeNode in="mask" />
+          </feMerge>
           <feFlood flood-color="#ffffff" result="col" />
-          <feComposite in="col" in2="mask" operator="in" result="shadow" />
+          <feComposite in="col" in2="shadow" operator="in" result="colored" />
           <feMerge>
-            <feMergeNode in="shadow" />
+            <feMergeNode in="colored" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
         <filter id="grainshadow-r" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
           <feTurbulence id="gs-r-turb" type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="1" stitchTiles="stitch" result="noise" />
           <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 18 -8" result="grain" />
-          <!-- fatten the glyph shape so the grain forms a visible halo around the
-               letters even with a tiny offset -->
+          <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="2" seed="2" stitchTiles="stitch" result="noise2" />
+          <feColorMatrix in="noise2" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 12 -5" result="grain2" />
           <feMorphology in="SourceAlpha" operator="dilate" radius="2.5" result="fat" />
           <feGaussianBlur in="fat" stdDeviation="1" result="blurred" />
-          <!-- threshold/boost the blurred alpha back up so the grain stays punchy
-               (soft fringe, full-strength body) instead of dimmed by the blur -->
           <feComponentTransfer in="blurred" result="soft">
             <feFuncA type="linear" slope="2.6" intercept="0" />
           </feComponentTransfer>
           <feOffset id="gs-r-off" in="soft" dx="5" dy="5" result="off" />
           <feComposite in="off" in2="grain" operator="in" result="mask" />
+          <feComposite in="off" in2="grain2" operator="in" result="mask2" />
+          <feGaussianBlur in="mask2" stdDeviation="2" result="mask2blur" />
+          <feMerge result="shadow">
+            <feMergeNode in="mask2blur" />
+            <feMergeNode in="mask" />
+          </feMerge>
           <feFlood flood-color="#ff3043" result="col" />
-          <feComposite in="col" in2="mask" operator="in" result="shadow" />
+          <feComposite in="col" in2="shadow" operator="in" result="colored" />
           <feMerge>
-            <feMergeNode in="shadow" />
+            <feMergeNode in="colored" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
