@@ -272,7 +272,7 @@ function Page({
 function useMouseShadow() {
   useEffect(() => {
     const root = document.documentElement;
-    const maxOffset = 14; // px the shadow can throw — kept tight so it stays attached
+    const maxOffset = 7; // px the shadow can throw — kept tight so it stays attached
     // feOffset + feTurbulence nodes for the SVG (glyph-contoured) shadows.
     const svgOffsets = ['gs-w-off', 'gs-r-off']
       .map((id) => document.getElementById(id))

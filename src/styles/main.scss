@@ -37,8 +37,8 @@ $grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width=
 // Mouse-driven offset (set from JS). Defaults so it still looks right with no pointer.
 // --gx/--gy scroll the grain texture so the noise refreshes as the pointer moves.
 :root {
-  --sx: 10px;
-  --sy: 10px;
+  --sx: 5px;
+  --sy: 5px;
   --si: 0.5;
   --gx: 0px;
   --gy: 0px;

@@ -19,7 +19,7 @@
           <feTurbulence id="gs-w-turb" type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="1" stitchTiles="stitch" result="noise" />
           <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 9 -4" result="grain" />
           <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="soft" />
-          <feOffset id="gs-w-off" in="soft" dx="10" dy="10" result="off" />
+          <feOffset id="gs-w-off" in="soft" dx="5" dy="5" result="off" />
           <feComposite in="off" in2="grain" operator="in" result="mask" />
           <feFlood flood-color="#ffffff" result="col" />
           <feComposite in="col" in2="mask" operator="in" result="shadow" />
@@ -32,7 +32,7 @@
           <feTurbulence id="gs-r-turb" type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="1" stitchTiles="stitch" result="noise" />
           <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 9 -4" result="grain" />
           <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="soft" />
-          <feOffset id="gs-r-off" in="soft" dx="10" dy="10" result="off" />
+          <feOffset id="gs-r-off" in="soft" dx="5" dy="5" result="off" />
           <feComposite in="off" in2="grain" operator="in" result="mask" />
           <feFlood flood-color="#ff3043" result="col" />
           <feComposite in="col" in2="mask" operator="in" result="shadow" />
