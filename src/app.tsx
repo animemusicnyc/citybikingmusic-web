@@ -164,22 +164,16 @@ function FlyerHome({ current }: { current: Route }) {
         <span>Suite 5007</span>
       </address>
 
-      <section class="contact-strip" aria-label="Quick contact information">
-        <a href="mailto:citybikingmusic@gmail.com">citybikingmusic@gmail.com</a>
-        <a href="https://citybikingmusic.com">citybikingmusic.com</a>
-        <a href="tel:+19292620437">(929) 262-0437</a>
-      </section>
-
-      <section class="book-section" aria-labelledby="book-heading">
-        <p class="kicker">Start with a conversation</p>
-        <h2 id="book-heading">Book Time</h2>
-        <p>
-          Talk to us before booking your first session. Once the project and setup
-          are clear, use the booking page to reserve time.
-        </p>
-        <div class="actions">
-          <a href="mailto:citybikingmusic@gmail.com">Talk to us</a>
-          <a href="https://citybikingmusic.com/book.html">Open booking page</a>
+      <section class="contact-strip" aria-label="Contact and booking">
+        <div class="contact-col">
+          <h2 id="book-heading">Book Time</h2>
+          <a class="reserve-btn" href="https://citybikingmusic.com/book.html">Reserve Online</a>
+        </div>
+        <div class="contact-divider" />
+        <div class="contact-col">
+          <a href="mailto:citybikingmusic@gmail.com">citybikingmusic@gmail.com</a>
+          <a href="https://citybikingmusic.com">citybikingmusic.com</a>
+          <a href="tel:+19292620437">(929) 262-0437</a>
         </div>
       </section>
     </section>
