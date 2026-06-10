@@ -452,50 +452,59 @@ h3 {
   aspect-ratio: 16 / 10;
 }
 
-.equipment-tree {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+.studio-right {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 36px);
 }
 
-.equipment-branch {
-  min-height: 180px;
-  padding: 22px;
-  border: 2px solid $line;
-  border-radius: 6px;
-  background: $paper;
+.studio-info {
+  margin: 0;
+  color: $muted;
+  font-size: clamp(1.08rem, 2vw, 1.35rem);
+  line-height: 1.45;
+}
 
-  @include noise-shadow($black);
+.equipment-tree {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.5vw, 28px);
 }
 
 .equipment-branch h3 {
-  margin-bottom: 14px;
-  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  margin: 0 0 6px;
+  color: $red;
+  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
   font-weight: 900;
   line-height: 1;
-  letter-spacing: 0;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .equipment-branch ul {
   margin: 0;
-  padding: 0 0 0 18px;
+  padding: 0;
   list-style: none;
 }
 
 .equipment-branch li {
   position: relative;
-  padding-left: 14px;
+  padding-left: 22px;
   color: $muted;
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .equipment-branch li::before {
-  content: "—";
+  content: "├─";
   position: absolute;
   left: 0;
-  color: $red;
+  color: $line;
+  opacity: 0.5;
+}
+
+.equipment-branch li:last-child::before {
+  content: "└─";
 }
 
 .team-grid {

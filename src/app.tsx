@@ -13,6 +13,8 @@ const navItems: Array<[Route, string]> = [
   ['services', 'Services'],
 ];
 
+const studioInfo = 'Bring your own laptop, interface, or preferred setup, or plug directly into ours. The room is built to adapt to the way you work.';
+
 const studioEquipment: Record<string, string[]> = {
   'DAW & Interface': [
     'Logic Pro 11',
@@ -189,17 +191,20 @@ function StudioPage() {
           <img src={asset('/studio/studio-3.webp')} alt="Wide view of the studio" />
         </div>
 
-        <div class="equipment-tree">
-          {Object.entries(studioEquipment).map(([category, items]) => (
-            <div class="equipment-branch" key={category}>
-              <h3>{category}</h3>
-              <ul>
-                {items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <div class="studio-right">
+          <p class="studio-info">{studioInfo}</p>
+          <div class="equipment-tree">
+            {Object.entries(studioEquipment).map(([category, items]) => (
+              <div class="equipment-branch" key={category}>
+                <h3>{category}</h3>
+                <ul>
+                  {items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </Page>
