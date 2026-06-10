@@ -152,7 +152,7 @@ main > .site-nav {
   flex: 0 0 auto;
   color: $red;
   font-weight: 900;
-  filter: url("#grainshadow-w");
+  text-shadow: var(--sx) var(--sy) 0 currentColor;
 }
 
 .site-nav nav {
@@ -165,7 +165,7 @@ main > .site-nav {
 .site-nav a {
   font-size: 0.92rem;
   font-weight: 900;
-  filter: url("#grainshadow-w");
+  text-shadow: var(--sx) var(--sy) 0 currentColor;
 }
 
 .site-nav a:hover,
@@ -208,7 +208,7 @@ h1 {
   text-align: center;
   text-transform: uppercase;
   white-space: nowrap;
-  filter: contrast(1.35) url("#grainshadow-w");
+  filter: contrast(1.35);
   transform: scaleY(1.12);
 }
 
@@ -231,11 +231,11 @@ h1 {
   font-weight: 900;
   line-height: 1;
   transform: scaleY(1.13);
-  filter: url("#grainshadow-r");
+  text-shadow: var(--sx) var(--sy) 0 currentColor;
 }
 
 .rates ul {
-  filter: url("#grainshadow-w");
+  text-shadow: var(--sx) var(--sy) 0 currentColor;
 }
 
 .rates ul {
@@ -281,7 +281,7 @@ h1 {
   letter-spacing: 0.055em;
   text-align: right;
   transform: scaleY(1.08);
-  filter: url("#grainshadow-w");
+  text-shadow: var(--sx) var(--sy) 0 currentColor;
 }
 
 .address-primary {
@@ -302,7 +302,7 @@ h1 {
   letter-spacing: 0.055em;
   text-align: center;
   transform: scaleY(1.08);
-  filter: url("#grainshadow-r");
+  text-shadow: var(--sx) var(--sy) 0 currentColor;
 }
 
 .contact-strip a:first-child {
@@ -310,11 +310,11 @@ h1 {
 }
 
 h2 {
-  filter: url("#grainshadow-r");
+  text-shadow: var(--sx) var(--sy) 0 currentColor;
 }
 
 h3 {
-  filter: url("#grainshadow-w");
+  text-shadow: var(--sx) var(--sy) 0 currentColor;
 }
 
 .page-shell {

@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "Bash(pnpm build *)",
-      "Bash(pnpm typecheck *)"
+      "Bash(pnpm typecheck *)",
+      "Bash(curl -s \"http://localhost:5173/src/styles/main.scss\")",
+      "Bash(curl -s \"http://localhost:5173/\")",
+      "Bash(curl -s \"http://localhost:5173/src/main.tsx\" -o /dev/null -w \"%{http_code}\\\\n\")",
+      "Bash(curl -s -o /tmp/idx.html -w \"status=%{http_code} size=%{size_download}\\\\n\" \"http://localhost:5173/\")",
+      "Read(//tmp/**)"
     ]
   }
 }
