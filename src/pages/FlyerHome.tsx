@@ -32,7 +32,7 @@ export function FlyerHome({ current }: { current: Route }) {
           <h2 id="book-heading">Book Time</h2>
           <a class="reserve-btn" href="https://citybikingmusic.com/book.html">Reserve Online</a>
 
-          <h4 id="book-heading">Hourly or Monthly, with guaranteed availability</h4>
+          <h4 class="book-note">Hourly or Monthly, with guaranteed availability</h4>
         </div>
         <div class="contact-divider" />
         <div class="contact-col">
