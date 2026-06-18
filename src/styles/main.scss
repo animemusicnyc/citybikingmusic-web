@@ -109,6 +109,17 @@ body {
   margin: 0;
 }
 
+html {
+  // Keep anchor targets clear of the fixed top bar.
+  scroll-padding-top: 76px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   background: $paper;
 }
@@ -1024,6 +1035,308 @@ h3 {
   text-transform: uppercase;
 }
 
+// ─────────────────────────────────────────────────────────────────────────
+// One-page broadsheet (experiment). A single scroll with the 3D city as a
+// full-viewport hero and the rest of the content as editorial sections below.
+// Reuses the existing component styles (gallery, equipment, team, cards) and
+// only adds the scaffolding around them.
+// ─────────────────────────────────────────────────────────────────────────
+
+.cb-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  padding: 9px clamp(16px, 4vw, 42px);
+  border-top: clamp(5px, 0.72vw, 8px) solid $red;
+  background: rgba($paper, 0.62);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.cb-nav nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px clamp(12px, 2vw, 22px);
+}
+
+.cb-nav nav a {
+  position: relative;
+  font-size: 0.92rem;
+  font-weight: 900;
+  filter: url("#grainshadow-w");
+  transition: color 0.2s ease;
+}
+
+.cb-nav nav a::after {
+  content: "";
+  position: absolute;
+  right: 100%;
+  bottom: -3px;
+  left: 0;
+  height: 2px;
+  background: $red;
+  transition: right 0.26s cubic-bezier(0.4, 0, 0.1, 1);
+}
+
+.cb-nav nav a:hover::after,
+.cb-nav nav a:focus-visible::after {
+  right: 0;
+}
+
+.cb-nav nav a:hover,
+.cb-nav nav a:focus-visible {
+  color: $red;
+  filter: url("#grainshadow-r");
+}
+
+// HERO ----------------------------------------------------------------------
+.cb-hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.cb-hero-city,
+.cb-hero-city > div {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Darken the edges and base so the title and bar read over the cityscape.
+.cb-hero-veil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(125% 85% at 50% 28%, transparent 42%, rgba($paper, 0.55) 100%),
+    linear-gradient(
+      to bottom,
+      rgba($paper, 0.45) 0%,
+      transparent 20%,
+      transparent 52%,
+      rgba($paper, 0.97) 100%
+    );
+}
+
+.cb-hero-content {
+  position: absolute;
+  right: 0;
+  bottom: clamp(76px, 13vh, 150px);
+  left: 0;
+  padding: 0 clamp(18px, 5vw, 54px);
+  text-align: center;
+  pointer-events: none;
+}
+
+.cb-hero-kicker {
+  margin: 0 0 clamp(14px, 2vw, 22px);
+  color: $red;
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  filter: url("#grainshadow-r");
+}
+
+.cb-hero-content h1 {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: $black;
+  font-family: $title-font;
+  font-size: clamp(2.9rem, 9.6vw, 7rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: clamp(0.02em, 0.55vw, 0.07em);
+  text-align: center;
+  text-transform: uppercase;
+  filter: contrast(1.35) url("#grainshadow-w");
+  transform: scaleY(1.16);
+}
+
+.cb-hero-sub {
+  margin: clamp(18px, 2.6vw, 30px) 0 0;
+  color: $muted;
+  font-size: clamp(0.95rem, 1.9vw, 1.35rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  filter: url("#grainshadow-w");
+}
+
+.cb-scroll {
+  position: absolute;
+  bottom: clamp(18px, 4vh, 34px);
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: $muted;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  transition: color 0.2s ease;
+}
+
+.cb-scroll:hover,
+.cb-scroll:focus-visible {
+  color: $red;
+}
+
+.cb-scroll-arrow {
+  font-size: 1.05rem;
+}
+
+// SECTIONS ------------------------------------------------------------------
+.cb-section {
+  width: min(1120px, calc(100% - 36px));
+  margin: 0 auto;
+  padding: clamp(60px, 10vw, 132px) 0;
+  scroll-margin-top: 76px;
+}
+
+.cb-section + .cb-section {
+  border-top: 2px solid rgba($line, 0.13);
+}
+
+.cb-head {
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+
+.cb-head h2 {
+  margin-bottom: 0;
+}
+
+// RATES ---------------------------------------------------------------------
+.cb-rates-section {
+  padding-top: clamp(70px, 11vw, 150px);
+}
+
+.cb-rates-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  filter: url("#grainshadow-w");
+}
+
+.cb-rates-list li {
+  font-family: $title-font;
+  font-size: clamp(2.7rem, 9.5vw, 6.6rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transform: scaleY(1.12);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.cb-rates-list li:hover {
+  color: $red;
+}
+
+// BOOK ----------------------------------------------------------------------
+.cb-book-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+}
+
+.cb-book-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cb-book-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-style: normal;
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+  font-weight: 900;
+  line-height: 1.2;
+  filter: url("#grainshadow-w");
+}
+
+.cb-book-info a {
+  transition: color 0.2s ease;
+}
+
+.cb-book-info a:hover,
+.cb-book-info a:focus-visible {
+  color: $red;
+}
+
+.cb-book-addr {
+  margin-bottom: 4px;
+  color: $muted;
+  font-size: 0.62em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+// MOTION --------------------------------------------------------------------
+@media (prefers-reduced-motion: no-preference) {
+  .cb-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .cb-section.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .cb-hero-content {
+    animation: cb-rise 0.9s 0.15s both;
+  }
+
+  .cb-scroll {
+    animation: fade-in 1s 0.8s both;
+  }
+
+  .cb-scroll-arrow {
+    animation: cb-bob 1.7s ease-in-out infinite;
+  }
+}
+
+@keyframes cb-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cb-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
 @media (max-width: 760px) {
   .site-nav {
     align-items: flex-start;
@@ -1133,6 +1446,38 @@ h3 {
   .footer-top {
     flex-direction: column;
     gap: 22px;
+  }
+
+  // The bar stacks on mobile, so push anchor targets down to match.
+  .cb-section {
+    scroll-margin-top: 108px;
+  }
+
+  .cb-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .cb-nav nav {
+    justify-content: flex-start;
+  }
+
+  .cb-nav nav a {
+    font-size: 0.82rem;
+  }
+
+  .cb-hero-content {
+    bottom: clamp(64px, 16vh, 120px);
+  }
+
+  .cb-hero-content h1 {
+    font-size: clamp(2.1rem, 11vw, 3.6rem);
+  }
+
+  .cb-book-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 }
 

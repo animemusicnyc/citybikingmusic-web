@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { asset } from '../lib/common';
 import { startTiltSource, stopTiltSource, subscribeTilt } from '../lib/tilt';
 
-export default function CityScene() {
+export default function CityScene({ fit = 1.3 }: { fit?: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
@@ -148,8 +148,9 @@ export default function CityScene() {
       const aspect =
         Math.max(1, container.clientWidth) / Math.max(1, container.clientHeight);
 
-      // Fit the bike tightly inside the camera view
-      viewHeight = Math.max(0.1, Math.max(frameSize.z, frameSize.x / aspect)) * 1.3;
+      // Fit the bike tightly inside the camera view ('fit' pulls the camera
+      // back when the scene is used as a full-bleed hero rather than a card).
+      viewHeight = Math.max(0.1, Math.max(frameSize.z, frameSize.x / aspect)) * fit;
 
       camera.near = 0.1;
       camera.far = 1000;
