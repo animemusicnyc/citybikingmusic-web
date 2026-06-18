@@ -25,7 +25,7 @@ export default function StudioPage() {
     return () => window.removeEventListener('keydown', onKey);
   }, [modalOpen]);
   return (
-    <Page title="Studio" kicker="Long Island City recording and production space">
+    <Page title="Studio" index="01" kicker="Long Island City recording and production space">
       <div class="gallery-wrap">
         <div class="studio-gallery" ref={galleryRef}>
           {studioImages.map((img, i) => (

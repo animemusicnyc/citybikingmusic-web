@@ -2,7 +2,7 @@ import { Page, services } from '../lib/common';
 
 export default function ServicesPage() {
   return (
-    <Page title="Services" kicker="Mixing and mastering">
+    <Page title="Services" index="03" kicker="Mixing and mastering">
       <div class="simple-grid two">
         {services.map((service) => (
           <article class="simple-card service-card">

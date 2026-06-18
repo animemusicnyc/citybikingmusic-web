@@ -2,7 +2,7 @@ import { asset, Page, team } from '../lib/common';
 
 export default function TeamPage() {
   return (
-    <Page title="Team" kicker="Engineers, producers, and visual support">
+    <Page title="Team" index="02" kicker="Engineers, producers, and visual support">
       <div class="team-list">
         {team.map((member) => (
           <article class="team-item" key={member.name}>

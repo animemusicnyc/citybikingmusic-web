@@ -1,5 +1,15 @@
 import CityScene from '../components/CityScene';
+import { Marquee } from '../components/Marquee';
 import { Header, Route } from '../lib/common';
+
+const marqueeItems = [
+  'rehearsal space',
+  'studio time',
+  'sessions',
+  'mixing',
+  'mastering',
+  'long island city',
+];
 
 export function FlyerHome({ current }: { current: Route }) {
   return (
@@ -26,6 +36,8 @@ export function FlyerHome({ current }: { current: Route }) {
         </span>
         <span>Suite 5007</span>
       </address>
+
+      <Marquee items={marqueeItems} />
 
       <section class="contact-strip" aria-label="Contact and booking">
         <div class="contact-col">

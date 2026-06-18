@@ -144,17 +144,52 @@ export function Header({ current }: { current: Route }) {
 export function Page({
   title,
   kicker,
+  index,
   children,
 }: {
   title: string;
   kicker: string;
+  index?: string;
   children: ComponentChildren;
 }) {
   return (
     <section class="page-shell" aria-labelledby="page-heading">
-      <p class="kicker">{kicker}</p>
+      <div class="page-head">
+        {index && (
+          <span class="page-index" aria-hidden="true">
+            {index}
+          </span>
+        )}
+        <p class="kicker">{kicker}</p>
+        <span class="page-rule" aria-hidden="true" />
+      </div>
       <h2 id="page-heading">{title}</h2>
       <div class="page-content">{children}</div>
     </section>
+  );
+}
+
+export function Footer() {
+  const year = new Date().getFullYear();
+  return (
+    <footer class="site-footer">
+      <div class="footer-top">
+        <a class="brand" href="#/" aria-label="City Biking Music home">
+          [city biking music]
+        </a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          {navItems.map(([route, label]) => (
+            <a href={`#/${route}`}>[{label}]</a>
+          ))}
+        </nav>
+        <div class="footer-contact">
+          <a href="mailto:citybikingmusic@gmail.com">citybikingmusic@gmail.com</a>
+          <a href="tel:+19292620437">(929) 262-0437</a>
+        </div>
+      </div>
+      <p class="footer-meta">
+        © {year} City Biking Music — 47-32 32nd Pl, Long Island City, NY
+      </p>
+    </footer>
   );
 }

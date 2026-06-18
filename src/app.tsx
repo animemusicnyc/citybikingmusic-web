@@ -1,4 +1,4 @@
-import { Header, useRoute } from './lib/common';
+import { Footer, Header, useRoute } from './lib/common';
 import { FlyerHome } from './pages/FlyerHome';
 import StudioPage from './pages/StudioPage';
 import TeamPage from './pages/TeamPage';
@@ -17,6 +17,7 @@ export function App() {
         {route === 'team' && <TeamPage />}
         {route === 'services' && <ServicesPage />}
       </main>
+      <Footer />
     </>
   );
 }
