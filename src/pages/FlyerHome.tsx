@@ -12,7 +12,7 @@ export function FlyerHome({ current }: { current: Route }) {
           <ul>
             <li>rehearsal space</li>
             <li>studio time</li>
-            <li>sessions</li>
+            <li>production services</li>
           </ul>
         </div>
         <figure class="map-card">

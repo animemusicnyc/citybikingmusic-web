@@ -152,7 +152,7 @@ export function OnePage() {
         </div>
         <div class="cb-hero-veil" aria-hidden="true" />
         <div class="cb-hero-content">
-          <p class="cb-hero-kicker">Long Island City · est. on two wheels</p>
+          <p class="cb-hero-kicker">Queens, New York</p>
           <h1>"CITY BIKING MUSIC"</h1>
           <p class="cb-hero-sub">
             Recording · Rehearsal · Mixing &amp; Mastering

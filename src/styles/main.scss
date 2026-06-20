@@ -1158,7 +1158,7 @@ h3 {
   font-size: clamp(2.9rem, 9.6vw, 7rem);
   font-weight: 400;
   line-height: 0.88;
-  letter-spacing: clamp(0.02em, 0.55vw, 0.07em);
+  letter-spacing: clamp(0.08em, 1.2vw, 0.18em);
   text-align: center;
   text-transform: uppercase;
   filter: contrast(1.35) url("#grainshadow-w");
@@ -1234,9 +1234,9 @@ h3 {
 }
 
 .cb-rates-list li {
-  font-family: $title-font;
+  font-family: $body-font;
   font-size: clamp(2.7rem, 9.5vw, 6.6rem);
-  font-weight: 400;
+  font-weight: 900;
   line-height: 0.98;
   letter-spacing: 0.02em;
   text-transform: uppercase;
