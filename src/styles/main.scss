@@ -192,94 +192,11 @@ body::after {
   }
 }
 
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.site-nav {
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  min-height: 42px;
-  padding: 10px clamp(16px, 4vw, 42px);
-  border-top: clamp(5px, 0.72vw, 8px) solid $red;
-  background: rgba($paper, 0.96);
-}
-
-.flyer-hero > .site-nav {
-  position: absolute;
-  top: clamp(84px, 12.3vw, 117px);
-  left: 0;
-  width: 100%;
-}
-
-main > .site-nav {
-  position: relative;
-  width: min(100vw, 952px);
-  margin: clamp(84px, 12.3vw, 117px) auto 0;
-}
-
 .brand {
   flex: 0 0 auto;
   color: $red;
   font-weight: 900;
   filter: url("#grainshadow-r");
-}
-
-.site-nav nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 10px clamp(12px, 2vw, 24px);
-}
-
-.site-nav a {
-  font-size: 0.92rem;
-  font-weight: 900;
-  filter: url("#grainshadow-w");
-}
-
-// Primary-nav links get an underline that wipes in from the left on hover/active
-// page, so navigating feels responsive without breaking the flat flyer look.
-.site-nav nav a {
-  position: relative;
-  transition: color 0.2s ease;
-}
-
-.site-nav nav a::after {
-  content: "";
-  position: absolute;
-  right: 100%;
-  bottom: -3px;
-  left: 0;
-  height: 2px;
-  background: $red;
-  transition: right 0.26s cubic-bezier(0.4, 0, 0.1, 1);
-}
-
-.site-nav nav a:hover::after,
-.site-nav nav a:focus-visible::after,
-.site-nav nav a[aria-current="page"]::after {
-  right: 0;
-}
-
-.site-nav a:hover,
-.site-nav a:focus-visible,
-.site-nav a[aria-current="page"] {
-  color: $red;
-  filter: url("#grainshadow-r");
-}
-
-.brand {
   transition: transform 0.2s ease;
 }
 
@@ -289,45 +206,6 @@ main > .site-nav {
 
 main {
   overflow: hidden;
-}
-
-.flyer-hero {
-  position: relative;
-  width: min(100vw, 952px);
-  min-height: min(129.41vw, 1232px);
-  margin: 0 auto;
-  padding-top: clamp(145px, 21.6vw, 206px);
-  overflow: hidden;
-  background: $paper;
-}
-
-// Staggered reveal so the flyer "develops" on load and on every return to the
-// home route. Display type (h1/address carry scaleY) fades only; plain blocks
-// rise. Gated on reduced-motion so nothing moves for users who opt out.
-@media (prefers-reduced-motion: no-preference) {
-  .flyer-hero > .site-nav {
-    animation: fade-in 0.6s 0.05s both;
-  }
-
-  .flyer-hero > h1 {
-    animation: fade-in 0.8s 0.12s both;
-  }
-
-  .flyer-hero > .details {
-    animation: rise 0.7s 0.24s both;
-  }
-
-  .flyer-hero > .address {
-    animation: fade-in 0.7s 0.36s both;
-  }
-
-  .flyer-hero > .contact-strip {
-    animation: rise 0.7s 0.46s both;
-  }
-
-  .page-shell {
-    animation: rise 0.55s both;
-  }
 }
 
 h1,
@@ -353,19 +231,6 @@ h1 {
   transform: scaleY(1.18);
 }
 
-.details {
-  display: grid;
-  grid-template-columns: minmax(270px, 340px) minmax(330px, 1fr);
-  gap: clamp(28px, 4.2vw, 44px);
-  align-items: start;
-  margin-top: clamp(40px, 6.25vw, 60px);
-  padding: 0 clamp(36px, 4.4vw, 42px);
-}
-
-.rates {
-  padding-top: clamp(72px, 9vw, 96px);
-}
-
 .rates-label {
   margin: 0 0 22px;
   font-size: clamp(1.55rem, 2.85vw, 1.95rem);
@@ -376,127 +241,6 @@ h1 {
   filter: url("#grainshadow-r");
 }
 
-.rates ul {
-  filter: url("#grainshadow-w");
-}
-
-.rates ul {
-  margin: 0;
-  padding: 0 0 0 clamp(24px, 2.55vw, 25px);
-  list-style: none;
-}
-
-.rates li {
-  font-size: clamp(2.1rem, 4.45vw, 2.75rem);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-}
-
-.map-card {
-  width: min(100%, 540px);
-  aspect-ratio: 512 / 440;
-  height: auto;
-  margin: 0;
-  background: $paper;
-  overflow: hidden;
-  @include noise-shadow($red);
-}
-.map-card canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.address {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: min(760px, calc(100% - 80px));
-  margin: clamp(36px, 6.4vw, 60px) clamp(42px, 5.9vw, 57px) 0 auto;
-  font-size: clamp(2.1rem, 3.85vw, 2.65rem);
-  font-style: normal;
-  font-weight: 900;
-  line-height: 1.04;
-  letter-spacing: 0.04em;
-  text-align: right;
-  transform: scaleY(1.12);
-  filter: url("#grainshadow-w");
-}
-
-.address-primary {
-  display: inline-flex;
-  gap: 0.26em;
-  white-space: nowrap;
-}
-
-.address > span:last-child {
-  margin-top: 0.18em;
-  color: $muted;
-  font-size: 0.66em;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.contact-strip {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: clamp(24px, 4vw, 52px);
-  align-items: center;
-  margin-top: clamp(68px, 7.5vw, 90px);
-  padding: 0 clamp(24px, 4vw, 48px);
-  text-align: center;
-}
-
-.contact-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(14px, 1.7vw, 20px);
-}
-
-.contact-col h2 {
-  margin: 0;
-  font-size: clamp(2.2rem, 5.4vw, 3.9rem);
-  line-height: 0.94;
-}
-
-.book-note {
-  max-width: 22ch;
-  margin: 0;
-  color: $muted;
-  font-size: clamp(0.82rem, 1.5vw, 1rem);
-  font-weight: 900;
-  line-height: 1.3;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-
-.contact-col a {
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: 0.02em;
-  filter: url("#grainshadow-w");
-}
-
-.contact-col a:not(.reserve-btn) {
-  transition: color 0.2s ease;
-}
-
-.contact-col a:not(.reserve-btn):hover,
-.contact-col a:not(.reserve-btn):focus-visible {
-  color: $red;
-}
-
-.contact-divider {
-  width: 2px;
-  height: 100%;
-  min-height: 80px;
-  background: $line;
-  opacity: 0.35;
-}
 
 .reserve-btn {
   display: inline-flex;
@@ -534,13 +278,6 @@ h3 {
   filter: url("#grainshadow-w");
 }
 
-.page-shell {
-  width: min(1120px, calc(100% - 32px));
-  min-height: calc(100vh - 62px);
-  margin: 0 auto;
-  padding: clamp(56px, 9vw, 112px) 0;
-}
-
 .kicker {
   margin-bottom: 12px;
   color: $red;
@@ -566,13 +303,6 @@ h3 {
   line-height: 1;
   letter-spacing: 0;
   text-transform: uppercase;
-}
-
-.page-content {
-  display: grid;
-  gap: 24px;
-  color: $muted;
-  font-size: clamp(1.08rem, 2vw, 1.35rem);
 }
 
 .simple-grid {
@@ -884,13 +614,6 @@ h3 {
   line-height: 0.9;
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.actions a,
 .service-card a {
   display: inline-flex;
   align-items: center;
@@ -910,36 +633,12 @@ h3 {
   @include noise-shadow($red);
 }
 
-.actions a:hover,
 .service-card a:hover {
   transform: translateY(-2px);
 }
 
-.actions a:active,
 .service-card a:active {
   transform: translateY(1px);
-}
-
-.actions a:nth-child(2) {
-  background: $paper;
-  color: $black;
-}
-
-.contact-card {
-  display: grid;
-  gap: 12px;
-  margin: 0;
-  color: $black;
-  font-style: normal;
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  font-weight: 900;
-  line-height: 1.1;
-}
-
-.contact-card a {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 5px;
 }
 
 // Editorial masthead for inner pages: index numeral, kicker, and a rule that
@@ -1635,8 +1334,7 @@ h3 {
   }
 
   .simple-grid,
-  .simple-grid.two,
-  .feature-grid {
+  .simple-grid.two {
     grid-template-columns: 1fr;
   }
 

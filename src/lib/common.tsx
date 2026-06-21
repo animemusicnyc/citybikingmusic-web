@@ -1,9 +1,6 @@
-import type { ComponentChildren } from 'preact';
-import { useEffect, useState } from 'preact/hooks';
-
-export type Route = 'home' | 'studio' | 'team' | 'services';
-
-export const navItems: Array<[Route, string]> = [
+// Section anchors shared by the nav and footer. The site is a single scroll, so
+// these map to in-page ids (`#studio`, `#team`, `#services`).
+export const navItems: Array<[string, string]> = [
   ['studio', 'Studio'],
   ['team', 'Team'],
   ['services', 'Services'],
@@ -13,24 +10,6 @@ export const navItems: Array<[Route, string]> = [
 // hardcoding "/..." (which 404s when the app is served from a subpath).
 export const asset = (path: string) =>
   `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
-
-function getRoute(): Route {
-  const route = window.location.hash.replace(/^#\/?/, '') as Route;
-  return ['studio', 'team', 'services'].includes(route) ? route : 'home';
-}
-
-export function useRoute() {
-  const [route, setRoute] = useState<Route>(getRoute);
-
-  useEffect(() => {
-    const handleHashChange = () => setRoute(getRoute());
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  return route;
-}
 
 export const studioInfo =
   'Bring your own laptop, interface, or preferred setup, or plug directly into ours. The room is built to adapt to the way you work.';
@@ -121,65 +100,17 @@ export const services: Service[] = [
   },
 ];
 
-export function Header({ current }: { current: Route }) {
-  return (
-    <header class="site-nav">
-      <a class="brand" href="#/" aria-label="City Biking Music home">
-        [city biking music]
-      </a>
-      <nav aria-label="Primary navigation">
-        {navItems.map(([route, label]) => (
-          <a
-            href={`#/${route}`}
-            aria-current={current === route ? 'page' : undefined}
-          >
-            [{label}]
-          </a>
-        ))}
-      </nav>
-    </header>
-  );
-}
-
-export function Page({
-  title,
-  kicker,
-  index,
-  children,
-}: {
-  title: string;
-  kicker: string;
-  index?: string;
-  children: ComponentChildren;
-}) {
-  return (
-    <section class="page-shell" aria-labelledby="page-heading">
-      <div class="page-head">
-        {index && (
-          <span class="page-index" aria-hidden="true">
-            {index}
-          </span>
-        )}
-        <p class="kicker">{kicker}</p>
-        <span class="page-rule" aria-hidden="true" />
-      </div>
-      <h2 id="page-heading">{title}</h2>
-      <div class="page-content">{children}</div>
-    </section>
-  );
-}
-
 export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer class="site-footer">
       <div class="footer-top">
-        <a class="brand" href="#/" aria-label="City Biking Music home">
+        <a class="brand" href="#top" aria-label="City Biking Music home">
           [city biking music]
         </a>
         <nav class="footer-nav" aria-label="Footer navigation">
           {navItems.map(([route, label]) => (
-            <a href={`#/${route}`}>[{label}]</a>
+            <a href={`#${route}`}>[{label}]</a>
           ))}
         </nav>
         <div class="footer-contact">
