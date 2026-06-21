@@ -4,7 +4,14 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { asset } from '../lib/common';
 import { startTiltSource, stopTiltSource, subscribeTilt } from '../lib/tilt';
 
-export default function CityScene({ fit = 1.3 }: { fit?: number }) {
+export default function CityScene({
+  fit = 1.3,
+  dpr = 2,
+}: {
+  fit?: number;
+  // Cap on devicePixelRatio — lower it on mobile to ease the GPU/battery cost.
+  dpr?: number;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
@@ -69,7 +76,7 @@ export default function CityScene({ fit = 1.3 }: { fit?: number }) {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.setClearColor(0x030303, 1);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, dpr));
     rendererRef.current = renderer;
     container.appendChild(renderer.domElement);
 
@@ -160,8 +167,14 @@ export default function CityScene({ fit = 1.3 }: { fit?: number }) {
     setRendererSize();
     positionCamera();
 
+    // Pause the render loop while the canvas is scrolled out of view so the
+    // GPU isn't spinning on an unseen scene (matters most on mobile battery).
+    let visible = true;
     const animate = (time = 0) => {
-      if (disposed) return;
+      if (disposed || !visible) {
+        animId = 0;
+        return;
+      }
       animId = requestAnimationFrame(animate);
       targetOrbitAngle.value += orbitSpeed;
       currentOrbitAngle.value += (targetOrbitAngle.value - currentOrbitAngle.value) * 0.05;
@@ -170,6 +183,18 @@ export default function CityScene({ fit = 1.3 }: { fit?: number }) {
       renderer.render(scene, camera);
     };
     animate();
+
+    const visibilityObserver =
+      'IntersectionObserver' in window
+        ? new IntersectionObserver(
+            ([entry]) => {
+              visible = entry.isIntersecting;
+              if (visible && !animId && !disposed) animate();
+            },
+            { threshold: 0 }
+          )
+        : null;
+    visibilityObserver?.observe(container);
 
     const loader = new GLTFLoader();
     loader.load(
@@ -359,6 +384,7 @@ export default function CityScene({ fit = 1.3 }: { fit?: number }) {
     return () => {
       disposed = true;
       cancelAnimationFrame(animId);
+      visibilityObserver?.disconnect();
       resizeObserver?.disconnect();
       unsubscribeTilt();
       stopTiltSource();
