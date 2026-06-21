@@ -71,17 +71,29 @@ function startPointer(): () => void {
 function startGyro(): () => void {
   if (typeof window.DeviceOrientationEvent !== 'function') return () => {};
   let listening = false;
+  // The desktop mouse rests at screen center -> (0, 0). A phone has no such
+  // natural zero: held to read, beta (front/back) sits at ~45-80deg, which would
+  // pin tilt.y to +1 forever. So capture the first reading as the rest pose and
+  // measure every tilt as a delta from it, the way the mouse measures offset
+  // from center. RANGE degrees from rest maps to the full -1..1.
+  const RANGE = 25;
+  let restGamma: number | null = null;
+  let restBeta: number | null = null;
   const onOrient = (e: DeviceOrientationEvent) => {
     if (e.gamma == null || e.beta == null) return;
-    // gamma: left/right tilt, beta: front/back tilt. Clamp to a comfortable
-    // range so users don't have to tilt the phone dramatically.
-    const dg = clamp(e.gamma, -30, 30) / 30;
-    const db = clamp(e.beta, -30, 30) / 30;
+    if (restGamma == null) {
+      restGamma = e.gamma;
+      restBeta = e.beta;
+    }
+    // gamma: left/right tilt, beta: front/back tilt. Delta from the rest pose,
+    // clamped to a comfortable range so small tilts already move the scene.
+    const dg = clamp(e.gamma - restGamma, -RANGE, RANGE) / RANGE;
+    const db = clamp(e.beta - (restBeta as number), -RANGE, RANGE) / RANGE;
     tilt.x = dg;
     tilt.y = db;
     tilt.dist = Math.min(1, Math.hypot(dg, db));
-    tilt.gx = dg * 30;
-    tilt.gy = db * 30;
+    tilt.gx = dg * RANGE;
+    tilt.gy = db * RANGE;
     tilt.seed = (tilt.seed % 90) + 1;
     tilt.source = 'gyro';
     schedule();
