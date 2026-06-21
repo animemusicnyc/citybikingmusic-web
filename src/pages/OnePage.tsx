@@ -11,6 +11,9 @@ import {
 
 const rates = ['rehearsal space', 'studio time', 'sessions'];
 
+// TODO: swap for the real booking calendar URL once it exists.
+const SCHEDULE_URL = '#schedule';
+
 const studioImages = [
   { src: asset('/studio/studio-1.webp'), alt: 'City Biking Music studio room' },
   { src: asset('/studio/studio-2.webp'), alt: 'Studio desk and gear' },
@@ -141,7 +144,7 @@ export function OnePage() {
           {navItems.map(([route, label]) => (
             <a href={`#${route}`}>[{label}]</a>
           ))}
-          <a href="#book">[Book]</a>
+          <a href="#top">[Book]</a>
         </nav>
       </header>
 
@@ -151,13 +154,49 @@ export function OnePage() {
           <CityScene fit={1.85} />
         </div>
         <div class="cb-hero-veil" aria-hidden="true" />
-        <div class="cb-hero-content">
-          <p class="cb-hero-kicker">Queens, New York</p>
+
+        {/* Title centred; everything else staggered to the edges. */}
+        <p class="cb-hero-kicker">Queens, New York</p>
+
+        <div class="cb-hero-title">
           <h1>"CITY BIKING MUSIC"</h1>
-          <p class="cb-hero-sub">
-            Recording · Rehearsal · Mixing &amp; Mastering
-          </p>
         </div>
+
+        <div class="cb-hero-foot">
+          <div class="cb-hero-book">
+            <p class="cb-hero-sub">
+              Recording · Rehearsal
+              <br />
+              Mixing &amp; Mastering
+            </p>
+            <ul class="cb-hero-rates">
+              <li>
+                <strong>$30</strong>/hr <span>rehearsal &amp; studio time</span>
+              </li>
+              <li>
+                <strong>$200</strong>/mo <span>unlimited access</span>
+              </li>
+            </ul>
+            <a class="reserve-btn" href={SCHEDULE_URL}>
+              Schedule
+            </a>
+            <span class="cb-hero-note">
+              Hourly or monthly · guaranteed availability
+            </span>
+          </div>
+          <address class="cb-hero-contact">
+            <a href="tel:+19292620437">(929) 262-0437</a>
+            <a href="mailto:citybikingmusic@gmail.com">
+              citybikingmusic@gmail.com
+            </a>
+            <span class="cb-hero-addr">
+              47-32 32nd Pl
+              <br />
+              Long Island City, NY · Suite 5007
+            </span>
+          </address>
+        </div>
+
         <a class="cb-scroll" href="#rates" aria-label="Scroll to rates">
           <span>scroll</span>
           <span class="cb-scroll-arrow" aria-hidden="true">
@@ -239,28 +278,6 @@ export function OnePage() {
         </div>
       </section>
 
-      {/* BOOK / CONTACT */}
-      <section class="cb-section cb-book" id="book">
-        <SectionHead index="04" kicker="Hourly or monthly availability" title="Book Time" />
-        <div class="cb-book-grid">
-          <div class="cb-book-cta">
-            <a class="reserve-btn" href="https://citybikingmusic.com/book.html">
-              Reserve Online
-            </a>
-            <p class="book-note">
-              Hourly or Monthly, with guaranteed availability
-            </p>
-          </div>
-          <address class="cb-book-info">
-            <span class="cb-book-addr">
-              47-32 32nd Pl, Long Island City, NY · Suite 5007
-            </span>
-            <a href="mailto:citybikingmusic@gmail.com">citybikingmusic@gmail.com</a>
-            <a href="https://citybikingmusic.com">citybikingmusic.com</a>
-            <a href="tel:+19292620437">(929) 262-0437</a>
-          </address>
-        </div>
-      </section>
     </div>
   );
 }
